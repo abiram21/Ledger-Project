@@ -1,0 +1,30 @@
+{
+  "name": "ledger",
+  "version": "1.0.0",
+  "description": "A quick way to obtain the ledger for lease ",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abiram21/Ledger-Project.git"
+  },
+  "keywords": [
+    "API",
+    "REST",
+    "Ledger"
+  ],
+  "author": "Abiram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abiram21/Ledger-Project/issues"
+  },
+  "homepage": "https://github.com/abiram21/Ledger-Project#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0"
+  }
+}
