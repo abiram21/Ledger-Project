@@ -28,12 +28,14 @@ switch(frequency) {
 }
 }
 
+//add certain no.of days to a date
 exports.addDays = function(dateStr, days) {
   var outDate = new Date(dateStr);
   outDate.setDate(outDate.getDate() + parseInt(days));
   return outDate;
 }
 
+// change format according to response
 exports.changeFormat = function(date) {
   year = date.getFullYear();
   const month = date.toLocaleString('default', { month: 'long' });
