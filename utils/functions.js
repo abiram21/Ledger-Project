@@ -25,7 +25,7 @@ switch(frequency) {
   case "FORTNIGHTLY":
     return 14;
     break;
-}
+  }
 }
 
 //add certain no.of days to a date
@@ -40,5 +40,33 @@ exports.changeFormat = function(date) {
   year = date.getFullYear();
   const month = date.toLocaleString('default', { month: 'long' });
   dt = date.getDate();
-  return month+" "+dt+", "+year;
+  suffix = findDateSuffix(dt);
+
+  return month+" "+dt+suffix+", "+year;
+
+
+}
+
+//adding suffix according to the date last digit
+function findDateSuffix(date){
+  let dateStr = date%10; // to find the last digit
+    
+  return digitSuffix(dateStr);
+}
+
+//define the suffix
+function digitSuffix(val) {
+switch(val) {
+  case 1:
+    return "st";
+    break;
+  case 2:
+    return "nd";
+    break;
+  case 3:
+    return "rd";
+    break;
+  default:
+    return "th";
+  }
 }

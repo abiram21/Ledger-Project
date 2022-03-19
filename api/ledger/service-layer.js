@@ -3,7 +3,7 @@ const {validate_ledger} = require('../../utils/request-schema/ledger-validator')
 const {ledgerResFormat} = require('../../utils/request-schema/ledger-response')
 // All the business logic here
 exports.getLedgers =  function (req, cb) {
-    let res = [];
+  let res = [];
   let payload = {
       "start_date": req.query.start_date,
       "end_date": req.query.end_date,
@@ -11,7 +11,6 @@ exports.getLedgers =  function (req, cb) {
       "weekly_rent": req.query.weekly_rent,
       "time_zone":req.query.timezone
   }
-
   const result = validate_ledger(payload); 
   if(result.error!=null) {
     return cb(true,result.error)
