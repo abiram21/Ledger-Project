@@ -35,6 +35,11 @@ exports.addDays = function(dateStr, days) {
   return outDate;
 }
 
+// Find the last day of a given month and year
+ exports.lastDayOfMonth = function (year,month){
+  return new Date(year, month +1, 0).getDate();
+}
+
 // change format according to response
 exports.changeFormat = function(date) {
   year = date.getFullYear();
