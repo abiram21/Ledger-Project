@@ -1,6 +1,6 @@
 
 const {validate_ledger} = require('../../utils/request-schema/ledger-validator')
-
+const {ledgerResFormat} = require('../../utils/request-schema/ledger-response')
 // All the business logic here
 exports.getLedgers =  function (req, cb) {
     let res = [];
@@ -29,21 +29,25 @@ exports.getLedgers =  function (req, cb) {
     
     const differenceInTime = endDate.getTime() - startDate.getTime();
     let noOfDays = differenceInTime / (1000 * 3600 * 24);
-
-    while (noOfDays>payDays){
-
-        let nextLeaseDate = util.addDays(startDate,payDays-1);
-        const lease = {"start_date":util.changeFormat(startDate),"end_date":util.changeFormat(nextLeaseDate),"amount":weekAmount}  
-        res.push(lease);
-
-        startDate = util.addDays(nextLeaseDate,1)
-        noOfDays = noOfDays-payDays;
-
-        if(noOfDays<payDays) {
+    // If total no.of days is less the the pay days (frequency days)
+    if(noOfDays < payDays) {
           const finalAmount = weekAmount / payDays * (noOfDays+1);
-          const finalLeaseDate = util.changeFormat(util.addDays(startDate,noOfDays));
-          const remainingLease = {"start_date":util.changeFormat(startDate),"end_date":finalLeaseDate,"amount":finalAmount} ;
-          res.push(remainingLease);
+          const finalLeaseDate = util.addDays(startDate,noOfDays);
+          res.push(ledgerResFormat(startDate,finalLeaseDate,finalAmount));
+    }
+    while (noOfDays >= payDays){
+        // Find the final date of lease
+        let nextLeaseDate = util.addDays(startDate,payDays-1); //(must subtract one beacause must consider the start date too)
+        //  iteration's lease response
+        res.push(ledgerResFormat(startDate,nextLeaseDate,weekAmount));
+        // next lease start date
+        startDate = util.addDays(nextLeaseDate,1) //adding one beacuse it must start from the next day of the current lease end date
+        noOfDays = noOfDays-payDays;
+        // when total no of days is smaller than the payDays then there won't be an next iteration so must find the amount of remaining days
+        if(noOfDays < payDays) {
+          const finalAmount = weekAmount / payDays * (noOfDays+1);
+          const finalLeaseDate = util.addDays(startDate,noOfDays);
+          res.push(ledgerResFormat(startDate,finalLeaseDate,finalAmount));
         }
         
     }
