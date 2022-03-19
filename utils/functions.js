@@ -16,3 +16,27 @@ exports.errorRes = function (error) {
     error: error
   };
 };
+
+exports.findDays = function(frequency) {
+switch(frequency) {
+  case "WEEKLY":
+    return 7;
+    break;
+  case "FORTNIGHTLY":
+    return 14;
+    break;
+}
+}
+
+exports.addDays = function(dateStr, days) {
+  var outDate = new Date(dateStr);
+  outDate.setDate(outDate.getDate() + parseInt(days));
+  return outDate;
+}
+
+exports.changeFormat = function(date) {
+  year = date.getFullYear();
+  const month = date.toLocaleString('default', { month: 'long' });
+  dt = date.getDate();
+  return month+" "+dt+", "+year;
+}

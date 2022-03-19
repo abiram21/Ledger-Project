@@ -1,8 +1,8 @@
 // All the endpoints received here
 const {getLedgers} = require('./service-layer')
-exports.fetch_ledgers = async (req, res) => {
+exports.fetch_ledgers =  (req, res) => {
 
-  await getLedgers(req, (err, result) => {
+   getLedgers(req, (err, result) => {
     if (err) {
       return res.status(400).json(util.errorRes([{ message: result }]));
     } else {
