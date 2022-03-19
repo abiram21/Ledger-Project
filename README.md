@@ -16,4 +16,8 @@
  7. Run the command "node server" to start the server.
  
  8. Use Postman to inovke the API or use CURL command.
+
+EG-: 
+
+http://localhost:6000/api/v1/ledgers?start_date=2020-03-28 15:00:00.000&end_date=2020-05-27 15:00:00.000&frequency=FORTNIGHTLY&weekly_rent=550&timezone=CST
  
