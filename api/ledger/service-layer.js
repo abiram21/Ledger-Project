@@ -16,7 +16,7 @@ exports.getLedgers =  function (req, cb) {
   }
   let startDate = new Date(payload.start_date.substring(0,10));
   let endDate = new Date(payload.end_date.substring(0,10));
-  let weekAmount = payload.weekly_rent;
+  let weekAmount = util.toTwoDecimal(payload.weekly_rent);
   const frequency = payload.frequency
   if(frequency != "MONTHLY") {
 
@@ -30,7 +30,8 @@ exports.getLedgers =  function (req, cb) {
     let noOfDays = differenceInTime / (1000 * 3600 * 24);
     // If total no.of days is less the the pay days (frequency days)
     if(noOfDays < payDays) {
-          const finalAmount = weekAmount / payDays * (noOfDays+1);
+          let finalAmount = weekAmount / payDays * (noOfDays+1);
+          finalAmount  = util.toTwoDecimal(finalAmount);
           const finalLeaseDate = util.addDays(startDate,noOfDays);
           res.push(ledgerResFormat(startDate,finalLeaseDate,finalAmount));
     }
@@ -44,7 +45,8 @@ exports.getLedgers =  function (req, cb) {
         noOfDays = noOfDays-payDays;
         // when total no of days is smaller than the payDays then there won't be an next iteration so must find the amount of remaining days
         if(noOfDays < payDays) {
-          const finalAmount = weekAmount / payDays * (noOfDays+1);
+          let finalAmount = weekAmount / payDays * (noOfDays+1);
+          finalAmount  = util.toTwoDecimal(finalAmount);
           const finalLeaseDate = util.addDays(startDate,noOfDays);
           res.push(ledgerResFormat(startDate,finalLeaseDate,finalAmount));
         }       
@@ -52,7 +54,8 @@ exports.getLedgers =  function (req, cb) {
   }
   else {
     
-    const amount = (weekAmount / 7 * 365) / 12;
+    let amount = (weekAmount / 7 * 365) / 12;
+    amount  = util.toTwoDecimal(amount);
 
     let nextLeaseDate = new Date (startDate);
     let originalDate = nextLeaseDate.getDate();
@@ -75,13 +78,14 @@ exports.getLedgers =  function (req, cb) {
       nextLeaseDate.setMonth(nextLeaseDate.getMonth()+1);
       nextLeaseDate.setDate(originalDate);
 
-      if(nextLeaseDate < endDate) {
+      if(nextLeaseDate <= endDate) {
         res.push(ledgerResFormat(startDate,nextLeaseDate,amount));
         startDate = new Date(nextLeaseDate);
       } else {
         const differenceInTime = endDate.getTime() - startDate.getTime();
         const noOfDays = differenceInTime / (1000 * 3600 * 24);
         balanceAmount = (payload.weekly_rent / 7 * noOfDays);
+        balanceAmount = util.toTwoDecimal(balanceAmount);
         res.push(ledgerResFormat(startDate,endDate,balanceAmount));
       }
     }

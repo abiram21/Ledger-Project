@@ -75,3 +75,7 @@ switch(val) {
     return "th";
   }
 }
+exports.toTwoDecimal =function (num) {
+  return +(Math.round(num + "e+2")  + "e-2");
+}
+
