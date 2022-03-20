@@ -14,8 +14,10 @@
  6. Run the command "npm i" to install all the depencies that are needed to run the project.
  
  7. Run the command "node server" to start the server.
+
+ 8. Run the command "npm test" to check all the test cases
  
- 8. Use Postman to inovke the API or use CURL command.
+ 9. Use Postman to inovke the API or use CURL command.
 
 EG-: 
 
