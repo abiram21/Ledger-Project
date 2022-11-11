@@ -4,7 +4,8 @@
   "description": "A quick way to obtain the ledger for lease ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start:dev": "nodemon server",
+    "start": "node server",
     "test": "mocha"
   },
   "repository": {

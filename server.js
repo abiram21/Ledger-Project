@@ -10,4 +10,6 @@ const port = process.env.PORT||3000;
 global.util = require('./utils/functions');
 const server = http.Server(app);
 require('./app')(app);
-server.listen(port);
+server.listen(port, () => {
+    console.log("Server started on port: " + port);
+});
