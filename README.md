@@ -1,4 +1,17 @@
 # Ledger-Project
+## Description
+- The endpoint should have with the following values as a query string:
+- Start date of the ledger - provided in ISO String (start_date)
+- The end date of the ledger - provided in ISO String (end_date)
+- Payment frequency of the ledger - provided as a string (frequency) - WEEKLY, FORTNIGHTLY, MONTHLY
+- The weekly amount of the ledger - provided as a number (weekly_rent)
+- The timezone of the property - provided as a string of TZ database name (timezone)
+    
+It will respond with an array of line items, each line item will include:
+-   Start date of that line item - in ISO String
+-   End date of that line item - in ISO String
+-   Total amount of the line item - as a number
+## To run this locally
  1. To run this project first you need to download and install nodejs https://nodejs.org/en/download/
  
  2. Clone the project using git clone https://github.com/abiram21/Ledger-Project or download the zip file.
